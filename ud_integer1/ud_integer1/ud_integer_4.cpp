@@ -1160,6 +1160,11 @@ ud_integer & ud_integer::operator -=(ud_integer & rp){
 ud_integer operator *(ud_integer & lp, ud_integer & rp){
 	ud_integer integerRet;
 	multiply(lp, rp, integerRet);
+	/*
+	std::ofstream ftest;
+	ftest.open("ptest.txt");
+	ftest << integerRet;
+	*/
 	return integerRet;
 }
 
@@ -1670,7 +1675,14 @@ void multiply(ud_integer & lp, ud_integer & rp, ud_integer & integerRet){
 	integerRet.lastBlock = integerRetBlockTemp;
 	integerRet.lastData = integerRetDataTemp - 1;
 	integerRet.sign = lp.sign * rp.sign;
-
+	/*
+	std::ofstream ftest;
+	ftest.open("ptest.txt");
+	ftest << lp << std::endl;
+	ftest << rp << std::endl;
+	ftest << integerRet << std::endl;
+	system("pause");
+	*/
 	return;
 }
 
@@ -1805,24 +1817,33 @@ int main(){
 	ftest2.close();
 	*/
 	ftest2.open("integerTestTemp1.txt");
+	t1 = timeGetTime();
 	switch (operatorTemp)
 	{
-	case '+':
-		ftest2 << test1 + test2;
-	case '-':
-		ftest2 << test1 - test2;
-	case '*':
-		ftest2 << test1 * test2;
+	case '+':{
+				 ftest2 << test1 + test2;
+				 break;
+	}
+	case '-':{
+				 ftest2 << test1 - test2;
+				 break;
+	}
+	case '*':{
+				 ftest2 << test1 * test2;
+				 break;
+	}
 	case '/':{
 				 test3 = test1 / test2;
 				 ftest2 << test3 << std::endl;
 				 ftest2 << test1 - test2 * test3;
+				 break;
 	}
-	default:
-		ftest2 << ' ';
-		break;
+	default:{
+				ftest2 << ' ';
+				break;
 	}
-
+	}
+	t2 = timeGetTime();
 	ftest2.close();
 	ftest1.open("integerTestTemp1.txt");
 	getline(ftest1,integerTemp);
@@ -1832,6 +1853,7 @@ int main(){
 		std::cout << integerTemp << std::endl;
 	}
 	ftest1.close();
+	std::cout << t2 - t1 << std::endl;
 	system("pause");
 	return 0;
 }
